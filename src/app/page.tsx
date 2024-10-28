@@ -1,18 +1,9 @@
 "use client";
 
-import Search from "@/components/Search/Search";
+import ResultsTable from "@/components/Advocates/ResultsTable";
+import Search from "@/components/Advocates/Search";
+import { Advocate } from "@/types/Advocate";
 import { useEffect, useState } from "react";
-
-export type Advocate = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  city: string;
-  degree: string;
-  specialties: string[];
-  yearsOfExperience: number;
-  phoneNumber: number;
-}
 
 export default function Home() {
   const [advocates, setAdvocates] = useState<Advocate[]>([]);
@@ -29,47 +20,12 @@ export default function Home() {
   }, []);
 
   return (
-    <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
-      <br />
-      <br />
-      <Search advocates={advocates} setFilteredAdvocates={setFilteredAdvocates}/>
-      <br />
-      <br />
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>City</th>
-            <th>Degree</th>
-            <th>Specialties</th>
-            <th>Years of Experience</th>
-            <th>Phone Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredAdvocates.map((advocate) => {
-            // ugly, of course if we were using the DB, we could use the PK.
-            const key = advocate.firstName + advocate.phoneNumber;
-            return (
-              <tr key={key}>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
-                  {advocate.specialties.map((s) => (
-                    <div key={s}>{s}</div>
-                  ))}
-                </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <main className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <h1 className="text-3xl font-bold text-gray-900">Solace Advocates</h1>
+        <Search advocates={advocates} setFilteredAdvocates={setFilteredAdvocates} />
+        <ResultsTable filteredAdvocates={filteredAdvocates} />
+      </div>
     </main>
   );
 }

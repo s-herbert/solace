@@ -1,4 +1,5 @@
-import { Advocate } from "@/app/page";
+
+import { Advocate } from "@/types/Advocate";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface SearchProps {
@@ -13,14 +14,16 @@ const Search: React.FC<SearchProps> = ({ advocates, setFilteredAdvocates }) => {
     const searchTerm = e.target.value;
 
     setSearchTerm(searchTerm);
-
+    const searchTermLower = searchTerm.toLowerCase();
     const filteredAdvocates = advocates.filter((advocate) => {
       return (
-        advocate.firstName?.includes(searchTerm) ||
-        advocate.lastName?.includes(searchTerm) ||
-        advocate.city?.includes(searchTerm) ||
-        advocate.degree?.includes(searchTerm) ||
-        advocate.specialties?.includes(searchTerm)
+        advocate.firstName?.toLowerCase().includes(searchTermLower) ||
+        advocate.lastName?.toLowerCase().includes(searchTermLower) ||
+        advocate.city?.toLowerCase().includes(searchTermLower) ||
+        advocate.degree?.toLowerCase().includes(searchTermLower) ||
+        advocate.specialties?.some(specialty =>
+          specialty.toLowerCase().includes(searchTermLower)
+        )
       );
     });
     console.log("filtering advocates...", filteredAdvocates);
@@ -29,22 +32,28 @@ const Search: React.FC<SearchProps> = ({ advocates, setFilteredAdvocates }) => {
   };
 
   const resetClick = () => {
-    console.log(advocates);
+    setSearchTerm('');
     setFilteredAdvocates(advocates);
   };
 
 
   return (
-    <div>
-      <p>Search</p>
-      <p>
-        Searching for: <span id="search-term">{searchTerm}</span>
-      </p>
-      <input style={{ border: "1px solid black" }} onChange={handleSearch} name="search" />
-      <button onClick={resetClick}>Reset Search</button>
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-6">
+      <p>Search Advocates</p>
+      <label htmlFor="search-term">
+        Filtered by: <span>{searchTerm}</span>
+      </label>
+      <input
+        placeholder="Advocate name, specialty, location..."
+        onChange={handleSearch}
+        name="search"
+        id="search-term"
+        value={searchTerm}
+        className="rounded-md border border-gray-300 w-full max-w-2xl block"
+      />
+      <button className="mt-2 px-2 py-1 bg-gray-100 rounded-md border border-gray-300" onClick={resetClick}>Reset</button>
     </div>
   );
-
 }
 
 export default Search;
