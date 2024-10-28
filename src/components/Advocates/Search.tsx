@@ -4,12 +4,12 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 interface SearchProps {
   advocates: Advocate[];
+  term: string;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
   setFilteredAdvocates: Dispatch<SetStateAction<Advocate[]>>;
 }
 
-const Search: React.FC<SearchProps> = ({ advocates, setFilteredAdvocates }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
+const Search: React.FC<SearchProps> = ({ advocates, setFilteredAdvocates, setSearchTerm, term }) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
 
@@ -26,7 +26,6 @@ const Search: React.FC<SearchProps> = ({ advocates, setFilteredAdvocates }) => {
         )
       );
     });
-    console.log("filtering advocates...", filteredAdvocates);
 
     setFilteredAdvocates(filteredAdvocates);
   };
@@ -41,14 +40,14 @@ const Search: React.FC<SearchProps> = ({ advocates, setFilteredAdvocates }) => {
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-6">
       <p>Search Advocates</p>
       <label htmlFor="search-term">
-        Filtered by: <span>{searchTerm}</span>
+        Filtered by: <span>{term}</span>
       </label>
       <input
         placeholder="Advocate name, specialty, location..."
         onChange={handleSearch}
         name="search"
         id="search-term"
-        value={searchTerm}
+        value={term}
         className="rounded-md border border-gray-300 w-full max-w-2xl block"
       />
       <button className="mt-2 px-2 py-1 bg-gray-100 rounded-md border border-gray-300" onClick={resetClick}>Reset</button>
