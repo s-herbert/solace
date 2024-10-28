@@ -15,8 +15,8 @@ export default function Home() {
       response.json().then((jsonResponse) => {
         setAdvocates(jsonResponse.data);
         setFilteredAdvocates(jsonResponse.data);
-      });
-    });
+      }).catch((err) => console.log('JSON err: ', err));
+    }).catch((err) => console.log('Fetch error: ', err));
   }, []);
 
   return (
