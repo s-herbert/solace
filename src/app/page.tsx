@@ -1,22 +1,22 @@
 "use client";
 
+import Search from "@/components/Search/Search";
 import { useEffect, useState } from "react";
 
-type Advocate = {
+export type Advocate = {
   id: number;
   firstName: string;
   lastName: string;
   city: string;
   degree: string;
   specialties: string[];
-  yearsOfExperience: string;
-  phoneNumber: string;
+  yearsOfExperience: number;
+  phoneNumber: number;
 }
 
 export default function Home() {
   const [advocates, setAdvocates] = useState<Advocate[]>([]);
   const [filteredAdvocates, setFilteredAdvocates] = useState<Advocate[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     console.log("fetching advocates...");
@@ -28,45 +28,12 @@ export default function Home() {
     });
   }, []);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = e.target.value;
-
-    setSearchTerm(searchTerm);
-
-    const filteredAdvocates = advocates.filter((advocate) => {
-      console.table(advocate);
-      return (
-        advocate.firstName.includes(searchTerm) ||
-        advocate.lastName.includes(searchTerm) ||
-        advocate.city.includes(searchTerm) ||
-        advocate.degree.includes(searchTerm) ||
-        advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
-      );
-    });
-    console.log("filtering advocates...", filteredAdvocates);
-
-    setFilteredAdvocates(filteredAdvocates);
-  };
-
-  const resetClick = () => {
-    console.log(advocates);
-    setFilteredAdvocates(advocates);
-  };
-
   return (
     <main style={{ margin: "24px" }}>
       <h1>Solace Advocates</h1>
       <br />
       <br />
-      <div>
-        <p>Search</p>
-        <p>
-          Searching for: <span id="search-term">{searchTerm}</span>
-        </p>
-        <input style={{ border: "1px solid black" }} onChange={handleSearch} />
-        <button onClick={resetClick}>Reset Search</button>
-      </div>
+      <Search advocates={advocates} setFilteredAdvocates={setFilteredAdvocates}/>
       <br />
       <br />
       <table>
@@ -84,7 +51,7 @@ export default function Home() {
         <tbody>
           {filteredAdvocates.map((advocate) => {
             // ugly, of course if we were using the DB, we could use the PK.
-            const key = advocate.firstName + advocate.lastName + advocate.phoneNumber;
+            const key = advocate.firstName + advocate.phoneNumber;
             return (
               <tr key={key}>
                 <td>{advocate.firstName}</td>
