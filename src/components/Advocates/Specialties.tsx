@@ -37,7 +37,7 @@ const Specialties: React.FC<{
         </div>
       )}
       
-      {/* Toggle button */}
+      {/* Collapse/Expand button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="text-blue-600 hover:text-blue-800 text-sm mt-1 cursor-pointer"
