@@ -8,16 +8,16 @@ interface ResultsTableProps {
 const ResultsTable: React.FC<ResultsTableProps> = ({filteredAdvocates}) => {
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full border-collapse">
+      <table className="min-w-full ">
         <thead>
           <tr className="border-b border-gray-200">
-            <th className="py-3 px-4 text-left">First Name</th>
-            <th className="py-3 px-4 text-left">Last Name</th>
-            <th className="py-3 px-4 text-left">City</th>
-            <th className="py-3 px-4 text-left">Degree</th>
+            <th className="py-3 px-4 text-center">First</th>
+            <th className="py-3 px-4 text-center">Last</th>
+            <th className="py-3 px-4 text-center">City</th>
+            <th className="py-3 px-4 text-center">Degree</th>
             <th className="py-3 px-4 text-left">Specialties</th>
-            <th className="py-3 px-4 text-left">Years of Experience</th>
-            <th className="py-3 px-4 text-left">Phone Number</th>
+            <th className="py-3 px-4 text-center">Years of Experience</th>
+            <th className="py-3 px-4 text-center">Phone Number</th>
           </tr>
         </thead>
         <tbody>
