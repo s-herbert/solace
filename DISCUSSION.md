@@ -57,5 +57,10 @@ The Components/ folder I created for the sake of this challenge, but I'd conform
 There's obviously a lot more that could be done, but I did what I could given the timeline.
 P.S. For what its worth, I probably couldve implemented a few of the above during the time it took to write this out! Haha
 
+## Things I missed, after sleeping on it:
+SSR, duh! we're using next! my head was in React land. 
+SSR would have cut down on an extra fetch, as the server could have done that and hydrated the dom with the initial data..
 
+It would make sense to create hooks for the fetching, and to remove the separate the filter logic from the display component.
+Can also take advantage of loading states
 
