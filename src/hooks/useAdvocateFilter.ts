@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Advocate } from '@/types/Advocate';
 
-export const useAdvocateFIlter = (advocates: Advocate[]) => {
+export const useAdvocateFilter = (advocates: Advocate[]) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredAdvocates = useMemo(() => {
